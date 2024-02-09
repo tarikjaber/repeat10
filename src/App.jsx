@@ -5,13 +5,13 @@ function App() {
   const TEN_MINUTES = 10 * 60
   const FIVE_MINUTES = 5 * 60
   const ONE_MINUTE = 1 * 60
-  const startTime = new Date()
   const [time, setTime] = createSignal(TEN_MINUTES)
+  const [startTime, setStartTime] = createSignal(new Date());
   
   createEffect(() => {
     if (time() <= 0) {
       setTime(TEN_MINUTES)
-      startTime = new Date()
+      setStartTime(new Date())
       new Notification("Interval over!")
     } else if (time() === FIVE_MINUTES) {
       new Notification("Halfway done!")
@@ -21,7 +21,7 @@ function App() {
   })
   
   const timer = setInterval(() => {
-    let endTime = Math.floor(+startTime / 1000) + TEN_MINUTES
+    let endTime = Math.floor(+startTime() / 1000) + TEN_MINUTES
     let currTime = Math.floor(+(new Date()) / 1000)
     let secondsLeft = endTime - currTime
     setTime(secondsLeft)
