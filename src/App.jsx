@@ -11,6 +11,7 @@ function App() {
   createEffect(() => {
     if (time() <= 0) {
       setTime(TEN_MINUTES)
+      startTime = new Date()
       new Notification("Interval over!")
     } else if (time() === FIVE_MINUTES) {
       new Notification("Halfway done!")
